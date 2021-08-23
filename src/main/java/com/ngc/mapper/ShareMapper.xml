@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ngc.dao.ShareDao">
+	<select id="queryShareFileSystem" 
+		parameterType="com.ngc.entity.ShareFileSystem" 
+			resultType="com.ngc.entity.ShareFileSystem">
+		SELECT 
+		  `id`,
+		  `file_name` AS fileName,
+		  `file_name_map` AS fileNameMap,
+		  `file_full_name` AS fileFullName,
+		  `file_full_name_map` AS fileFullNameMap,
+		  `file_type` AS fileType,
+		  `parent_id` AS parentId,
+		  `parent_path` AS parentPath,
+		  `current_path` AS currentPath,
+		  `file_size` AS fileSize,
+		  `share_app_id` AS shareAppId,
+		  `create_time` AS createTime,
+		  `token` AS token
+		FROM 
+			`share_file_system`
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="shareAppId != null">
+				AND `share_app_id` = #{shareAppId}
+			</if>
+			<if test="fileName != null">
+				AND `file_name` = #{fileName}
+			</if>
+			<if test="fileNameMap != null">
+				AND `file_name_map` = #{fileNameMap}
+			</if>
+			<if test="fileFullName != null">
+				AND `file_full_name` = #{fileFullName}
+			</if>
+			<if test="fileFullNameMap != null">
+				AND `file_full_name_map` = #{fileFullNameMap}
+			</if>
+			<if test="fileType != null">
+				AND `file_type` = #{fileType}
+			</if>
+			<if test="parentId != null">
+				AND `parent_id` = #{parentId}
+			</if>
+			<if test="parentPath != null">
+				AND `parent_path` = #{parentPath}
+			</if>
+			<if test="currentPath != null">
+				AND `current_path` = #{currentPath}
+			</if>
+			<if test="fileSize != null">
+				AND `file_size` = #{fileSize}
+			</if>
+			<if test="createTime != null">
+				AND `create_time` = #{createTime}
+			</if>
+			<if test="token != null">
+				AND `token` = #{token}
+			</if>
+		</trim>
+		ORDER BY `file_type`,`fileName`
+	</select>
+	
+	<insert id="insertShareFileSystem" parameterType="com.ngc.entity.ShareFileSystem">
+		INSERT INTO `share_file_system`
+		(
+		  `id`,
+		  `token`,
+		  `file_name`,
+		  `file_name_map`,
+		  `file_full_name`,
+		  `file_full_name_map`,
+		  `file_type`,
+		  `parent_id`,
+		  `parent_path`,
+		  `current_path`,
+		  `file_size`,
+		  `share_app_id`,
+		  `create_time`
+		)
+		VALUES
+		(
+			#{id},
+			#{token},
+			#{fileName},
+			#{fileNameMap},
+			#{fileFullName},
+			#{fileFullNameMap},
+			#{fileType},
+			#{parentId},
+			#{parentPath},
+			#{currentPath},
+			#{fileSize},
+			#{shareAppId},
+			#{createTime}
+		)
+	</insert>
+	
+	<select id="queryShareFileSystemPw" 
+		parameterType="com.ngc.entity.SharePw" 
+			resultType="com.ngc.entity.SharePw">
+		SELECT 
+		  `id`,
+		  `token` AS token,
+		  `pw` AS pw,
+		  `app_id` AS appID
+		FROM 
+			`share_file_system_pw`
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="token != null">
+				AND `token` = #{token}
+			</if>
+			<if test="pw != null">
+				AND `pw` = #{pw}
+			</if>
+			<if test="appID != null">
+				AND `app_id` = #{appID}
+			</if>
+		</trim>
+	</select>
+	
+	
+	<insert id="insertShareFileSystemPw" parameterType="com.ngc.entity.SharePw">
+		INSERT INTO `share_file_system_pw`
+		(
+		  `token`,
+		  `pw`,
+		  `app_id`
+		)
+		VALUES
+		(
+			#{token},
+			#{pw},
+			#{appID}
+		)
+	</insert>
+</mapper>

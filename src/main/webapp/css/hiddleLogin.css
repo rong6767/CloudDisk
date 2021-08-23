@@ -1,0 +1,33 @@
+.body{
+	background-color: #FFFFFF;
+}
+.body .hedInput{
+	height: 400px;
+	width: 350px;
+	float: left;
+	margin-left: 506px;
+	margin-top: 112px;
+}
+.body .hedInput .imgDiv{
+	text-align: center;
+}
+.body .hedInput .inputDiv{
+	text-align: center;
+	height: 35px;
+	line-height: 35px;
+}
+.body .hedInput .inputDiv div{
+	border: 1px solid #999999;
+	width: 225px;
+	margin-left: 61px;
+}
+.body .hedInput .inputDiv div input{
+	border-style: none;
+}
+.body .hedInput .submitDiv{
+	text-align: center;
+	padding: 15px 0px;
+}
+.body .hedInput .submitDiv input{
+	width: 225px;
+}

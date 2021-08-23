@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:redis="http://www.springframework.org/schema/redis" 
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="   
+               http://www.springframework.org/schema/beans 
+               http://www.springframework.org/schema/beans/spring-beans.xsd   
+               http://www.springframework.org/schema/mvc 
+               http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+               http://www.springframework.org/schema/aop 
+               http://www.springframework.org/schema/aop/spring-aop.xsd   
+               http://www.springframework.org/schema/tx 
+               http://www.springframework.org/schema/tx/spring-tx.xsd 
+               http://www.springframework.org/schema/context 
+               http://www.springframework.org/schema/context/spring-context.xsd
+               http://www.springframework.org/schema/redis
+               http://www.springframework.org/schema/redis/spring-redis.xsd
+               http://www.springframework.org/schema/cache
+               http://www.springframework.org/schema/cache/spring-cache.xsd">
+ 	
+ 	<mvc:annotation-driven/>
+	<mvc:default-servlet-handler/>
+	<!-- 自动扫描该包，使dubbo加载控制器 -->  
+	<context:component-scan base-package="com.ngc"/>
+	<!-- json配置 -->
+  	<mvc:annotation-driven>
+  		<mvc:message-converters>
+  			<bean class="org.springframework.http.converter.ResourceHttpMessageConverter"></bean>
+  			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+  				<property name="supportedMediaTypes">
+  					<list>
+  						<value>text/html;charset=UTF-8</value>
+  						<value>application/json;charset=UTF-8</value>
+  					</list>
+  				</property>
+  			</bean>
+  		</mvc:message-converters>
+  	</mvc:annotation-driven>
+	
+	<!-- 定义跳转的文件的前后缀 ，视图模式配置-->  
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+        <!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->  
+        <property name="prefix" value="/jsp/" />  
+        <property name="suffix" value=".jsp" />  
+    </bean>  
+    
+    <!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->  
+    <bean id="multipartResolver"    
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">    
+        <!-- 默认编码 -->  
+        <property name="defaultEncoding" value="utf-8" />    
+        <!-- 文件大小最大值 -->  
+        <property name="maxUploadSize" value="10485760000" />    
+        <!-- 内存中的最大值 -->  
+        <property name="maxInMemorySize" value="40960" />    
+    </bean> 
+    
+    <!-- Redis相关配置开始 -->
+    <context:property-placeholder order="1" location="classpath:redis.properties" ignore-unresolvable="true"/>
+    <!-- 连接池参数 -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.pool.maxIdle}" />
+        <property name="minIdle" value="${redis.pool.minIdle}" />
+        <property name="maxTotal" value="${redis.pool.maxTotal}" />
+        <property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}" />
+        <property name="minEvictableIdleTimeMillis" value="${redis.pool.minEvictableIdleTimeMillis}"></property>
+        <property name="numTestsPerEvictionRun" value="${redis.pool.numTestsPerEvictionRun}"></property>
+        <property name="timeBetweenEvictionRunsMillis" value="${redis.pool.timeBetweenEvictionRunsMillis}"></property>
+        <property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
+        <property name="testOnReturn" value="${redis.pool.testOnReturn}" />
+        <property name="testWhileIdle" value="${redis.pool.testWhileIdle}"></property>
+    </bean>
+ 
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="poolConfig" ref="jedisPoolConfig" />
+        <property name="hostName" value="${redis.host}" />
+        <property name="port" value="${redis.port}" />
+        <property name="password" value="${redis.pwd}" />
+        <property name="usePool" value="${redis.userPool} " />
+        <property name="database" value="${redis.database}" />
+        <property name="timeout" value="${redis.timeout}" />
+    </bean>
+ 
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory" />
+        <!-- 序列化方式 建议key/hashKey采用StringRedisSerializer -->
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        </property>
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+        </property>
+        <property name="hashKeySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        </property>
+        <property name="hashValueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+        </property>
+         <!-- 开启REIDS事务支持 -->
+         <property name="enableTransactionSupport" value="false" />
+    </bean>
+ 
+    <!-- 对string操作的封装 -->
+    <bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+        <constructor-arg ref="jedisConnectionFactory" />
+            <!-- 开启REIDS事务支持 -->  
+         <property name="enableTransactionSupport" value="false" />
+    </bean>
+    <!-- Redis相关配置结束 -->
+    
+    <mvc:interceptors>
+	   <mvc:interceptor>  
+	        <mvc:mapping path="/**" />
+	        <mvc:exclude-mapping path="/jsp/login.jsp"/>
+	        <mvc:exclude-mapping path="/jsp/reg.jsp"/>
+	        <mvc:exclude-mapping path="/base/unsalf*"/>
+	        <mvc:exclude-mapping path="/user/unsalf*"/>
+	        <mvc:exclude-mapping path="/fs/unsalf*"/>
+	        <mvc:exclude-mapping path="/share/unsalf*"/>
+	        <bean class="com.ngc.controller.interceptors.LoginInterceptor"/>  
+	    </mvc:interceptor>  
+    </mvc:interceptors>
+</beans>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

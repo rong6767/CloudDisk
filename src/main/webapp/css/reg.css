@@ -1,0 +1,106 @@
+body{
+	background-color: #CCCCCC;
+}
+.body{
+	width: 1590px;
+	height: 790px;
+	background-color: #FFFFFF;
+	position: absolute;
+	float: left;
+	margin-left: 50%;
+	left: -795px;
+	margin-top: 2px;
+	z-index: 1;
+}
+.body .bgimg img{
+	width: 1590px;
+	height: 790px;
+	opacity: 0.8;
+}
+.body .login{
+	width: 385px;
+	height: 445px;
+	background-color: #FFFFFF;
+	float: left;
+	position: absolute;
+	top: 190px;
+	left: 990px;
+	border-radius: 5px;
+}
+.body .login .title{
+	height: 80px;
+	line-height: 80px;
+	font-size: 18px;
+	padding-left: 35px;
+	font-weight: bold;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.body .login .inputDiv{
+}
+.body .login .inputDiv input{
+	width: 295px;
+	height: 35px;
+	font-size: 14px;
+	border-color: #999999;
+	background-color: #FCFCFC;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-left: 35px;
+	border-width: 1px;
+}
+.body .login .inputDiv .success{
+	background-color: #02F78E;
+}
+.body .login .inputDiv .error{
+	background-color: #FF5809;
+}
+.body .login .textDiv{
+	text-align: center;
+	line-height: 45px;
+	height: 45px;
+	font-size: 14px;
+}
+.body .login .textDiv input{
+	margin-top: -2px;
+}
+.body .login .checkNumber .checkNumberInput{
+	width: 152px;
+}
+.body .login .checkNumber .checkNumberButton{
+	width: 118px;
+	height: 29px;
+	line-height: 29px;
+	border-radius: 0px;
+}
+.body .login .submitDiv{
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+.body .login .submitDiv input{
+	width: 305px;
+	height: 35px;
+	margin-left: 35px;
+}
+.body .login .bottomDiv{
+	background-color: #F0F0F0;
+	height: 57px;
+}
+.body .login .bottomDiv a{
+	display: block;
+	height: 57px;
+	line-height: 57px;
+	font-size: 16px;
+	color: #66B3FF;
+	text-decoration: none;
+	float: right;
+	margin-right: 25px;
+}
+.body .login .bottomDiv a:hover{
+	color: #97CBFF;
+}
+
+
+
+
+

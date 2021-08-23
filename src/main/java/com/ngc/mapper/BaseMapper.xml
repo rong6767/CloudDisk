@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ngc.dao.BaseDao">
+	<insert id="insertUserTrajectory" parameterType="com.ngc.entity.UserTrajectory">
+		INSERT INTO `user_trajectory` 
+			(
+			  `trajectory_type`,
+			  `explain`,
+			  `app_id`
+			)
+		VALUES
+			(
+				#{trajectoryType},
+				#{explain},
+				#{appID}
+			)
+	</insert>
+</mapper>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ngc.dao.CloudDiskFileSystemDao">
+	<select id="queryCloudDiskFileSystem" 
+		parameterType="com.ngc.entity.CloudDiskFileSystem" 
+			resultType="com.ngc.entity.CloudDiskFileSystem">
+		SELECT 
+		  `id`,
+		  `file_name` AS fileName,
+		  `file_name_map` AS fileNameMap,
+		  `file_full_name` AS fileFullName,
+		  `file_full_name_map` AS fileFullNameMap,
+		  `file_is_hidden` AS fileIsHidden,
+		  `file_type` AS fileType,
+		  `parent_id` AS parentId,
+		  `parent_path` AS parentPath,
+		  `current_path` AS currentPath,
+		  `file_status` AS fileStatus,
+		  `file_size` AS fileSize,
+		  `app_id` AS appID,
+		  `create_time` AS createTime,
+		  `update_time` AS updateTime,
+		  `uuid`
+		FROM 
+			`file_system`
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="appID != null">
+				AND `app_id` = #{appID}
+			</if>
+			<if test="fileName != null">
+				AND `file_name` = #{fileName}
+			</if>
+			<if test="fileNameMap != null">
+				AND `file_name_map` = #{fileNameMap}
+			</if>
+			<if test="fileFullName != null">
+				AND `file_full_name` = #{fileFullName}
+			</if>
+			<if test="fileFullNameLike != null">
+				AND `file_full_name` LIKE CONCAT(#{fileFullNameLike},"%")
+			</if>
+			<if test="fileFullNameMap != null">
+				AND `file_full_name_map` = #{fileFullNameMap}
+			</if>
+			<if test="fileIsHidden != null">
+				AND `file_is_hidden` = #{fileIsHidden}
+			</if>
+			<if test="fileType != null">
+				AND `file_type` = #{fileType}
+			</if>
+			<if test="parentId != null">
+				AND `parent_id` = #{parentId}
+			</if>
+			<if test="parentPath != null">
+				AND `parent_path` = #{parentPath}
+			</if>
+			<if test="currentPath != null">
+				AND `current_path` = #{currentPath}
+			</if>
+			<if test="fileStatus != null">
+				AND `file_status` = #{fileStatus}
+			</if>
+			<if test="fileSize != null">
+				AND `file_size` = #{fileSize}
+			</if>
+			<if test="createTime != null">
+				AND `create_time` = #{createTime}
+			</if>
+			<if test="updateTime != null">
+				AND `update_time` = #{updateTime}
+			</if>
+			<if test="uuid != null">
+				AND `uuid` = #{uuid}
+			</if>
+		</trim>
+		ORDER BY `file_type` 
+		<if test="isFileNameDesc == null or isFileNameDesc == 0">
+			,`fileName`
+		</if>
+		<if test="isFileNameDesc == 1">
+			,`fileName` DESC
+		</if>
+	</select>
+	<insert id="insertCloudDiskFileSystem" parameterType="com.ngc.entity.CloudDiskFileSystem">
+		INSERT INTO `file_system`
+		(
+		  `file_name`,
+		  `file_name_map`,
+		  `file_full_name`,
+		  `file_full_name_map`,
+		  `file_is_hidden`,
+		  `file_type`,
+		  `parent_id`,
+		  `parent_path`,
+		  `current_path`,
+		  `file_status`,
+		  `file_size`,
+		  `app_id`,
+		  `create_time`,
+		  `update_time`,
+		  `uuid`
+		)
+		VALUES
+		(
+			#{fileName},
+			#{fileNameMap},
+			#{fileFullName},
+			#{fileFullNameMap},
+			#{fileIsHidden},
+			#{fileType},
+			#{parentId},
+			#{parentPath},
+			#{currentPath},
+			#{fileStatus},
+			#{fileSize},
+			#{appID},
+			#{createTime},
+			#{updateTime},
+			#{uuid}
+		)
+	</insert>
+	<update id="updateCloudDiskFileSystem" parameterType="com.ngc.entity.CloudDiskFileSystem">
+		UPDATE `file_system`
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="appID != null">
+				`app_id` = #{appID},
+			</if>
+			<if test="fileName != null">
+				`file_name` = #{fileName},
+			</if>
+			<if test="fileNameMap != null">
+				`file_name_map` = #{fileNameMap},
+			</if>
+			<if test="fileFullName != null">
+				`file_full_name` = #{fileFullName},
+			</if>
+			<if test="fileFullNameMap != null">
+				`file_full_name_map` = #{fileFullNameMap},
+			</if>
+			<if test="fileIsHidden != null">
+				`file_is_hidden` = #{fileIsHidden},
+			</if>
+			<if test="fileType != null">
+				`file_type` = #{fileType},
+			</if>
+			<if test="parentId != null">
+				`parent_id` = #{parentId},
+			</if>
+			<if test="parentPath != null">
+				`parent_path` = #{parentPath},
+			</if>
+			<if test="currentPath != null">
+				`current_path` = #{currentPath},
+			</if>
+			<if test="fileStatus != null">
+				`file_status` = #{fileStatus},
+			</if>
+			<if test="fileSize != null">
+				`file_size` = #{fileSize},
+			</if>
+			<if test="updateTime != null">
+				`update_time` = #{updateTime},
+			</if>
+		</trim>
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+		  	<if test="id != null">
+				AND id = #{id}
+			</if>
+		</trim>
+	</update>
+</mapper>

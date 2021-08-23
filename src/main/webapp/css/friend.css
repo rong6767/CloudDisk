@@ -1,0 +1,168 @@
+body{
+	background-color: #CCCCCC;
+}
+a{
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: none;
+}
+a:active{
+	text-decoration: none;
+}
+a:link{
+	text-decoration: none;
+}
+a:visited{
+	text-decoration: none;
+}
+.body{
+	width: 1590px;
+	height: 790px;
+	background-color: #FFFFFF;
+	position: absolute;
+	float: left;
+	margin-left: 50%;
+	left: -795px;
+	margin-top: 2px;
+	z-index: 1;
+}
+.title{
+	width: 100%;
+	height: 65px;
+	background-color: red;
+	border-bottom: 1px solid #999999;
+}
+.title .col{
+	height: 65px;
+	float: left;
+}
+.title .logo{
+	width: 140px;
+	background-color: #F0F0F0;
+	line-height:65px ;
+	text-align: center;
+	font-size: 28px;
+}
+.title .menu{
+	font-size: 16px;
+	width: 100px;
+	background-color: #F0F0F0;
+	line-height: 65px;
+	text-align: center;
+	cursor: pointer;
+}
+.title .menu .bottonSpan{
+	display: block;
+	float: left;
+	margin-left: 34px;
+	height: 64px;
+	color: #09AAFF;
+	border-style: none none solid none;
+	border-width: 0px 0px 2px 0px;
+	border-color: #F0F0F0 #F0F0F0 #09AAFF #F0F0F0;
+}
+.title .menu .bottonSpan:hover{
+	color: #09AAEE;
+}
+.title .spa{
+	width: 945px;
+	background-color: #F0F0F0;
+}
+.title .vip1{
+	width: 190px;
+	background-color: #F0F0F0;
+}
+.title .vip2{
+	text-align: center;
+	width: 115px;
+	background-color: #F0F0F0;
+	line-height: 65px;
+}
+.title .vip2 .buttonA{
+	color: #333;
+	font-size: 14px;
+	font-weight: 500;
+	background: linear-gradient(-139deg,#F0D7A3 0,#EFCB85 100%) #F0D7A3;
+	border-radius: 100px;
+	padding: 5px 15px;
+}
+.title .vip2 .buttonA:hover{
+	text-decoration: none;
+}
+.title .vip2 .buttonA:active{
+	text-decoration: none;
+}
+.title .vip2 .buttonA:link{
+	text-decoration: none;
+}
+.title .vip2 .buttonA:visited{
+	text-decoration: none;
+}
+.middel .menuList,.middel .iframe{
+	float: left;
+	height: 724px;
+}
+.middel .menuList{
+	background-color: #F0F0F0;
+	width: 159px;
+	border-right: 1px solid #999999;
+}
+.middel .menuList .showMenu{
+	height: 660px;
+}
+.middel .menuList .showMenu .base{
+	width: 157px;
+	border-left: 2px solid #F0F0F0;
+	background-color: #F0F0F0;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	color: #000000;
+	cursor: pointer;
+}
+.middel .menuList .showMenu .base:hover{
+	border-left: 2px solid #0066CC;
+	background-color: #84C1FF;
+}
+.middel .menuList .showMenu .menu{
+	width: 157px;
+	border-left: 2px solid #005AB5;
+	background-color: #0080FF;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	color: #FFFFFF;
+}
+.middel .menuList .showMenu .base a{
+	color: #000000;
+}
+.middel .menuList .showMenu .menu a{
+	color: #FFFFFF;
+}
+.middel .menuList .showMenu .base a:hover{
+	text-decoration: none;
+}
+.middel .menuList .showMenu .base a:active{
+	text-decoration: none;
+}
+.middel .menuList .showMenu .base a:link{
+	text-decoration: none;
+}
+.middel .menuList .showMenu .base a:visited{
+	text-decoration: none;
+}
+.middel .menuList .showSize{
+	height: 64px;
+}
+.middel .ifream{
+
+}
+.middel .ifream iframe{
+	border: 0px none;
+	width: 1430px;
+	height: 724px;
+}
+.clear{
+	clear: both;
+}

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ngc.dao.UserDao">
+	<select id="queryUserByPar" parameterType="com.ngc.entity.User" resultType="com.ngc.entity.User">
+		SELECT 
+			  `id`,
+			  `user_name` AS userName,
+			  `pass_word` AS passWord,
+			  `phone_number` AS phoneNumber,
+			  `app_id` AS appID,
+			  `create_time` AS createTime,
+			  `update_time` AS updateTime
+		FROM 
+			`user`
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="userName != null">
+				AND `user_name` = #{userName}
+			</if>
+			<if test="phoneNumber != null">
+				AND `phone_number` = #{phoneNumber}
+			</if>
+			<if test="passWord != null">
+				AND `pass_word` = MD5(#{passWord})
+			</if>
+			<if test="appID != null">
+				AND `app_id` = #{appID}
+			</if>
+		</trim>
+	</select>
+	
+	<insert id="insertUser" parameterType="com.ngc.entity.User">
+		INSERT INTO `user` 
+			(
+			  `user_name`,
+			  `pass_word`,
+			  `phone_number`,
+			  `app_id`
+			)
+		VALUES
+			(
+				#{userName},
+				MD5(#{passWord}),
+				#{phoneNumber},
+				MD5(#{appID})
+			)
+	</insert>
+	
+	
+	
+	
+</mapper>
